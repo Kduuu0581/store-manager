@@ -1,5 +1,5 @@
 const productModel = require('../models/productModel');
-const validateRegistreProduct = require('./validations/validationInputValues');
+const { validateRegistreProduct } = require('./validations/validationInputValues');
 
 const listProducts = async () => { 
   const products = await productModel.listProducts();
