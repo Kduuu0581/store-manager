@@ -1,4 +1,5 @@
 const productModel = require('../models/productModel');
+const validateRegistreProduct = require('./validations/validationInputValues');
 
 const listProducts = async () => { 
   const products = await productModel.listProducts();
@@ -13,7 +14,16 @@ const listProductById = async (id) => {
   return { type: null, message: product };
 };
 
+const insert = async (name) => {
+  const { type, message } = validateRegistreProduct(name);
+  if (type) return { type, message };
+  const newProductId = await productModel.insert({ name });
+  const newProduct = await productModel.listProductById(newProductId);
+  return { type: null, message: newProduct };
+ };
+
 module.exports = {
   listProducts,
   listProductById,
+  insert,
 };
