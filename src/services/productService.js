@@ -8,7 +8,7 @@ const listProducts = async () => {
 const listProductById = async (id) => { 
   const product = await productModel.listProductById(id);
   if (!product) {
-    return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+    return { type: 'ID_INVALID', message: 'Product not found' };
   }
   return { type: null, message: product };
 };
