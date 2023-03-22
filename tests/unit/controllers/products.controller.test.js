@@ -48,7 +48,7 @@ describe('Teste de unidade productController', function() {
       await productController.listProductsById(req, res);
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
-     });
+    });
   });
   afterEach(function () {
     sinon.restore();
