@@ -50,6 +50,34 @@ describe('Teste de unidade productController', function() {
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
     });
   });
+  describe('Inserindo um produto', function () {
+    it('Deve retornar o status 201 ao inserir dados válidos', async function () {
+      const res = {};
+      const req = { body: { name: 'Martelo do Thor' } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon.stub(productService, 'insert').resolves({
+        type: null,
+        message: listProducts[0],
+      });
+      await productController.registerProduct(req, res);
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledWith(listProducts[0]);
+    });
+    it('Deve retornar o status 422 ao inserir dados inválidos', async function () {
+      const res = {};
+      const req = { body: { name: 'Ao' } };
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon.stub(productService, 'insert').resolves({
+        type: 422,
+        message: '"name" length must be at least 5 characters long',
+      });
+      await productController.registerProduct(req, res);
+      expect(res.status).to.have.been.calledWith(422);
+      expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
+     });
+   });
   afterEach(function () {
     sinon.restore();
    });

@@ -5,7 +5,7 @@ const validateRegistreProduct = (name) => {
   const { error } = validateName.validate(name);
   if (error) {
     return {
-    type: 'INVALID_VALUE',
+    type: 422,
     message: '"name" length must be at least 5 characters long',
   };
 }

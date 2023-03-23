@@ -25,6 +25,22 @@ describe('Testa de unidade productService', function () {
       expect(result.message).to.be.equal('Product not found');
      });
   });
+  describe('Cadastra produto com dados inválidos', function () {
+    it('Retorna erro ao inserir nome inválido', async function () {
+      const result = await productService.insert('Ba');
+      expect(result.type).to.equal(422);
+      expect(result.message).to.equal('"name" length must be at least 5 characters long');
+     });
+  });
+  describe('Cadastra produto com dados válidos', function () {
+    it('Retorna Id do novo cadastro', async function () {
+      sinon.stub(productModel, 'insert').resolves(1);
+      sinon.stub(productModel, 'listProductById').resolves(listProducts[0]);
+      const result = await productService.insert('Martelo do Thor');
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(listProducts[0]);
+     });
+   });
   afterEach(function () {
     sinon.restore();
   })

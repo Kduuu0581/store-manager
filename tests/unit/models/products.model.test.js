@@ -15,6 +15,11 @@ describe('Testa de unidade productModel', function () {
     const result = await productModel.listProductById(1);
     expect(result).to.be.deep.equal(listProducts[0]);
   });
+  it('Cadastra novo produto ', async function () {
+    sinon.stub(connection, 'execute').resolves([{ insertId: 1 }]);
+    const result = await productModel.insert({ name: 'Falcão' });
+    expect(result).to.be.equal(1);
+   });
   afterEach(function () {
     sinon.restore();
   })
