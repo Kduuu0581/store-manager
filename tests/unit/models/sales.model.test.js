@@ -16,6 +16,16 @@ describe('Teste de unidade salesModel', function () {
     const result = await saleModel.insertProductSale(regiterProductMock[0]);
     expect(result).to.equal(1);
   });
+  it('Retorna uma venda pelo id', async function () {
+    sinon.stub(connection, 'execute').resolves([getIdSales]);
+    const result = await saleModel.findSaleById(1);
+    expect(result).to.be.deep.equal(getIdSales);
+  });
+  it('Retorna todas as vendas', async function () {
+    sinon.stub(connection, 'execute').resolves([listSales]);
+    const result = await saleModel.findAllSale();
+    expect(result).to.be.deep.equal(listSales);
+   });
   this.afterEach(function () {
     sinon.restore();
   });
