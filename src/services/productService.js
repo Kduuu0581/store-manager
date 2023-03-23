@@ -20,10 +20,22 @@ const insert = async (name) => {
   const newProductId = await productModel.insert({ name });
   const newProduct = await productModel.listProductById(newProductId);
   return { type: null, message: newProduct };
- };
-
+};
+ 
+const update = async (name, id) => {
+  const { type, message } = validateRegistreProduct(name);
+  if (type) return { type, message };
+  const affectedRows = await productModel.update(name, id);
+  if (!affectedRows) {
+    return { type: 404, message: 'Product not found' };
+   }
+   const productUpdate = await productModel.listProductById(id);
+   return { type: null, message: productUpdate };
+};
+ 
 module.exports = {
   listProducts,
   listProductById,
   insert,
+  update,
 };
