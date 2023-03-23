@@ -41,6 +41,22 @@ const findAllSale = async () => {
     INNER JOIN StoreManager.sales AS s ON sp.sale_id = s.id`,
   );
   return productSale;
+};
+ 
+const deleteSaleProduct = async (id) => {
+  const [{ affectedRows }] = await connection.execute(
+    'DELETE FROM StoreManager.sales_products WHERE sale_id = ?',
+    [id],
+  );
+  return affectedRows;
+};
+ 
+const deleteSale = async (id) => {
+  const [{ affectedRows }] = await connection.execute(
+    'DELETE FROM StoreManager.sales WHERE id = ?',
+    [id],
+  );
+  return affectedRows;
  };
  
 module.exports = {
@@ -48,4 +64,6 @@ module.exports = {
   insertProductSale,
   findSaleById,
   findAllSale,
+  deleteSaleProduct,
+  deleteSale,
 };
