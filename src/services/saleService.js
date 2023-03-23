@@ -19,8 +19,21 @@ const { validateRegistreSaleQuantity,
         })),
   );
   return { type: null, message: { id: saleId, itemsSold: sale } };
+  };
+
+const findSaleById = async (idSale) => {
+  const result = await saleModel.findSaleById(idSale);
+  if (!result.length) return { type: 404, message: 'Sale not found' };
+  return { type: null, message: result };
 };
+ 
+const findAllSale = async () => {
+  const result = await saleModel.findAllSale();
+  return { type: null, message: result };
+ };
  
 module.exports = {
   registreSale,
+  findSaleById,
+  findAllSale,
 };
