@@ -4,7 +4,7 @@ const connection = require('../../../src/models/connection');
 const { productModel } = require('../../../src/models');
 const { listProducts } = require('./mocks/products.model.mock');
 
-describe('Testa de unidade productModel', function () {
+describe('Teste de unidade productModel', function () {
   it('Recupera a lista de todos os produtos', async function () {
     sinon.stub(connection, 'execute').resolves([listProducts]);
     const result = await productModel.listProducts();
